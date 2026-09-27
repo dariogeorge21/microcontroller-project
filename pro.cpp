@@ -53,10 +53,10 @@ Adafruit_SSD1306 display(
 #define YELLOW_SEC         3
 
 // Seconds added when a noise event is detected
-#define ADAPT_STEP_SEC     2
+#define ADAPT_STEP_SEC     3
 
 // Minimum time between two timer extensions
-#define ADAPT_COOLDOWN_MS  2000
+#define ADAPT_COOLDOWN_MS  1000
 
 
 // =============================================================================
