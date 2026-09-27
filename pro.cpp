@@ -129,11 +129,6 @@ uint16_t noise_filtered = 0;
 // Time at which the last timer extension occurred.
 uint32_t last_adapt_time = 0;
 
-// Total seconds added to the current green phase by audio events.
-// Resets to 0 at the start of every new green phase.
-// Displayed on the OLED as "+Xs" so the extension amount is visible.
-uint32_t green_time_added = 0;
-
 // Indicates that a valid noise event was detected during the
 // current green phase.
 bool noise_triggered = false;
@@ -370,8 +365,7 @@ void tryAdaptGreenTime(uint32_t now) {
   // Extend the current green phase by 2 seconds.
   // ---------------------------------------------------------------------------
 
-  phase_remaining  += ADAPT_STEP_SEC;
-  green_time_added += ADAPT_STEP_SEC;  // track cumulative extension for OLED display
+  phase_remaining += ADAPT_STEP_SEC;
 
 
   // ---------------------------------------------------------------------------
@@ -536,10 +530,9 @@ void enterNextState() {
 
       phase_remaining = road_b_green_time;
 
-      // Reset noise adaptation and extension counter for the new green phase.
-      noise_triggered  = false;
-      last_adapt_time  = 0;
-      green_time_added = 0;
+      // Reset noise adaptation for the new green phase.
+      noise_triggered = false;
+      last_adapt_time = 0;
 
       break;
 
@@ -570,10 +563,9 @@ void enterNextState() {
 
       phase_remaining = road_a_green_time;
 
-      // Reset noise adaptation and extension counter for the new green phase.
-      noise_triggered  = false;
-      last_adapt_time  = 0;
-      green_time_added = 0;
+      // Reset noise adaptation for the new green phase.
+      noise_triggered = false;
+      last_adapt_time = 0;
 
       break;
   }
@@ -665,9 +657,8 @@ void setup() {
   // Start with Road A green.
   phase_remaining = road_a_green_time;
 
-  noise_triggered  = false;
-  last_adapt_time  = 0;
-  green_time_added = 0;
+  noise_triggered = false;
+  last_adapt_time = 0;
 
 
   // ---------------------------------------------------------------------------
